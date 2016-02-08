@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script id="PageTemplate" type="text/x-handlebars-template">
+        <div id='{{id}}' model='{{model}}' class='{{cssClass}}'>
+        </div>
+    </script>
+    <script id="GridTemplate" type="text/x-handlebars-template">
+        <div id='{{id}}' model='{{model}}' class='{{cssClass}}'>
+            <ul class="current">
+                {{#eachEntry entries}}
+                <li id="{{this.id}}">
+                    <a href='{{this.link}}'>
+                        <img src='{{this.image}}'/>
+                    </a>
+                    <a href='{{this.link}}'>
+                        <div>
+                            <span>{{title}} ({{this.website}})</span>
+                        </div>
+                    </a>
+                </li>
+                {{/eachEntry}}
+            </ul>
+            <br/>
+        </div>
+    </script>
+
+    <script id="ButtonTemplate" type="text/x-handlebars-template">
+        <button id='{{id}}' class='{{cssClass}}'>{{label}}</button>
+    </script>
+
+    <script id="GenericContainerTemplate" type="text/x-handlebars-template">
+        <div id='{{id}}' class='{{cssClass}}'></div>
+    </script>
+
+    <script type="text/javascript">
+			//document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+	</script>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script src="js/jquery/jquery-1.7.2.min.js"></script>
+    <script src="js/jquery/plugins/date.js"></script>
+    <script src="js/jquery/plugins/jquery.db.v1.js"></script>
+    <script src="js/cubiq-iscroll/src/iscroll.js"></script>
+    <script src="js/templating/handlebars-1.0.0.beta.6.js"></script>
+
+    <script src="js/framework/Utils.js"></script>
+    <script src="js/framework/Framework.js"></script>
+    <script src="js/framework/Entity.js"></script>
+    <script src="js/framework/Database.js"></script>
+    <script src="js/framework/Controller.js"></script>
+    <script src="js/framework/View.js"></script>
+    <script src="js/framework/Model.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/chimP/global.css" />
+</head>
+
+<body>
+
+</body>
+
+</html>

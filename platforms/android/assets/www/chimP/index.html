@@ -1,0 +1,86 @@
+<html>
+	<head>
+		<script src="../js/phonegap/cordova-2.2.0.js"></script>
+		
+		<script src="../js/jquery/jquery-1.7.2.min.js"></script>
+		<!-- <script src="../js/jquery.mobile-1.1.0/jquery.mobile-1.1.0.min.js"></script> -->
+		<script src="../js/templating/handlebars-1.0.0.beta.6.js"></script>
+		<script src="../js/jquery/plugins/jquery.db.v1.js"></script>
+		<script src="../js/jquery/plugins/date.js"></script>
+		
+		<script src="../js/framework/Utils.js"></script>
+		<script src="../js/framework/Framework.js"></script>
+		<script src="../js/framework/Entity.js"></script>
+		<script src="../js/framework/Database.js"></script>
+		<script src="../js/framework/Controller.js"></script>
+		<script src="../js/framework/View.js"></script>
+		<script src="../js/framework/Model.js"></script>
+		
+		<script src="../js/framework/SwipeView.js"></script>
+		
+		<script src="../js/framework/Canvas.js"></script>
+		
+
+		<meta name="viewport" content="minimum-scale=1.0,maximum-scale=1.0,width=device-width,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+		
+		<link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+		<link rel="apple-touch-startup-image" href="./startup.png" />
+	
+		<link rel="stylesheet" type="text/css" href="../css/chimP/global.css" />
+		<link rel="stylesheet" type="text/css" href="../css/chimP/swipeview.css" />
+	
+	</head>
+
+	<body  ontouchmove="BlockMove(event);">
+		
+			<div id="contentArea" class="contentArea">
+				
+				<form id="queryForm" onsubmit="doQuery(this);return false;">
+					SQL Query:<input type="text" name="query" value="SELECT * FROM RSSFeed"></input><br>
+					<input type="submit"/>
+				</form>
+				
+				<script>
+					function addUser(evt){
+						var firstname = $("#userForm :input[name='firstname']").val();
+						var lastname = $("#userForm :input[name='lastname']").val();
+						var email = $("#userForm :input[name='email']").val();
+					    var user = new User(firstname, lastname, email);
+					    App.clearLog();
+					    user.save(function(){
+					    	//App.log("Success!!");
+					    }, function(){
+					    	App.error("Error: "+JSON.stringify(arguments));
+					    });
+						return false;
+					}
+					function doQuery(evt){
+						var query = $("#queryForm :input[name='query']").val();
+						$.db.query(query, null, function(norm_results, tx, queryStr){
+							//App.clearLog();
+							for(result in norm_results.results){
+								$("#myConsole").append("<div>result: "+norm_results.results[result]['title']+"</div>");
+							}
+						}, function(){
+							App.error("Error: "+JSON.stringify(arguments));
+						});
+						return false;
+					}
+				</script>
+				
+				<div id="logCount">0</div>
+				<div id="myConsole"></div>
+
+			</div>
+			<div style="float:right;background-color:red;left:100%;height:100%;overflow-y:scroll;" id="contentArea" class="contentArea">
+					<div style="height:150%;">
+					adfasfdafdfdfdsafdafdsfdafdafdafasf
+					</div>
+			</div>
+			<div style="float:right;background-color:brown;left:200%" id="contentArea" class="contentArea">
+					adfasfdafdfdfdsafdafdsfdafdafdafasf
+			</div>
+	</body>
+</html>
