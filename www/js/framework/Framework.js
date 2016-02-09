@@ -12,20 +12,26 @@ var App = function () {
 		console.log("App.init()");
 		this.showDeviceInfo();
 		this.DB = new this.Database('ChimpDB', App.Schema);
-		this.DB.checkStatus(function(initialized){
-			if(!initialized){
-				this.DB.init(callback);
-			}else{
-				if(callback)callback();
-			}
-		}.bind(this));
+		this.DB.init()
+        .done(function(){
+			callback();
+        })
+        .fail(function(err){
+        	console.log('Error '+err);
+        });
 	}
 	
 	var refresh = function(callback){
 		console.log("App.refresh()");
 		this.showDeviceInfo();
 		//this.DB = new this.Database('ChimpDB', App.Schema);
-		this.DB.init(callback);
+		this.DB.refresh()
+		.done(function(){
+			callback();
+		 })
+		 .fail(function(err){
+			console.log('Error '+err);
+		 });;
 	}
 	
 	var showDeviceInfo = function(){
@@ -73,7 +79,6 @@ $(window).load(function () {
 			window.console.log('in App.init() callback');
 			//var homePage = new HomePage();
 			App.page.render();
-			App.page.gridView.render();
 		});
 	});
 	
@@ -101,7 +106,7 @@ $(window).load(function () {
 			window.console.log('in App.init() callback');
 			//var homePage = new HomePage();
 			App.page.render();
-			App.page.gridView.render();
+			//App.page.gridView.render();
 	});
 	
 	//document.addEventListener("deviceready", onDeviceReady);

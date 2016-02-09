@@ -42,10 +42,6 @@ function Paginable(limit, total){
 				console.log(JSON.stringify(arguments));
 			}, entity);
 	}.bind(this);
-	/**
-	 * The bind() method creates a new function that, when called, 
-	 * has its this keyword set to the provided value, with a given sequence of arguments preceding any provided when the new function is called.
-	 */
 }
 
 /** ***************************** Models *************************************/
@@ -94,7 +90,7 @@ function RSSList(){
 
 	this.get = function(callback){
 		console.log("RSSList.render() called with: ");
-		console.log(arguments);
+		//console.log(arguments);
 		this.refresh(
 			function(norm_results){
 				var model = this.model(norm_results.results);
@@ -114,6 +110,6 @@ RSSList.prototype = {
 	NOTE: While the syntax of this function is almost identical to that of apply(), 
 	the fundamental difference is that call() accepts an argument list, while apply() accepts a single array of arguments.
  */
-Paginable.call(RSSList.prototype, 240, 1024);
+Paginable.call(RSSList.prototype, 30, 1024);
 
 /** **************************************************************************/

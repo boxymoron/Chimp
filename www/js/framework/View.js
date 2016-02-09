@@ -80,25 +80,6 @@ function PageView(controller, cssClass){
 	this.cssClass = (cssClass == null ? 'PageView' : cssClass);
 	
 	this.subViews = [];
-	
-	/*this.onRender = function(model){
-		var start = new Date().getTime();
-		//console.log("rendering:");
-		//console.log(this);
-		
-		var view = model == null ? {} : model;
-		//console.log(arguments);
-		view.id = model ? model.id : this.id;
-		view.cssClass = this.cssClass;
-		var html = this.template(view);
-		if(this.superView && this.superView.$element){
-			this.superView.$element.append(html);
-		}else{
-			$('body').append(html);
-			this.$element = $('#'+this.id);
-		}
-		console.log(this.id+" rendering done, took "+(new Date().getTime()-start)+" ms");
-	};*/
 }
 PageView.inheritsFrom(View);
 PageView.prototype.template = Handlebars.compile($('#PageTemplate').html());
@@ -124,11 +105,12 @@ function GridView(superView, controller, model, cssClass) {
 	}
 	
 	this.click = function(evt){
-		//console.log(evt);
+		//console.log(this.id+" click() triggered on: "+evt.target+" parent: "+$(evt.target).closest("li").attr("id"));
+		//return false;
 	}
 	
 	this.mouseover = function(evt){
-		//console.log(this.id+" mouseover() triggered on: "+evt.target);
+		//console.log(this.id+" mouseover() triggered on: "+evt.target+" parent: "+$(evt.target).closest("li").attr("id"));
 	}
 	
 	this.actions = {

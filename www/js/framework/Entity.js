@@ -3,7 +3,7 @@ App.Schema = {
 	tables : [
 	    {name : "User", fields: [{name: 'id', type: 'INTEGER', extra: 'PRIMARY KEY AUTOINCREMENT'}, {name: 'firstName', type: 'TEXT'}, {name: 'lastName', type: 'TEXT'}, {name: 'email', type: 'TEXT'}]  },
 	    {name : "Publication", fields: [{name: 'id', type:'TEXT', extra: 'PRIMARY KEY'}, {name:'lastSynch', type: 'TIMESTAMP'}]},
-	    {name : "RSSFeed", fields: [{name: 'id', type: 'INTEGER', extra: 'PRIMARY KEY AUTOINCREMENT'}, {name: 'title', type: 'TEXT'}, {name: 'description', type: 'TEXT'}, {name: 'link', type: 'TEXT'}, {name: 'website', type: 'TEXT'}, {name: 'pubDate', type: 'INTEGER'}, {name: 'image', type: 'TEXT'}]  },
+	    {name : "RSSFeed", fields: [{name: 'id', type: 'INTEGER', extra: 'PRIMARY KEY AUTOINCREMENT'}, {name: 'title', type: 'TEXT'}, {name: 'description', type: 'TEXT'}, {name: 'link', type: 'TEXT'}, {name: 'website', type: 'TEXT'}, {name: 'pubDate', type: 'INTEGER'}, {name: 'image', type: 'TEXT'}, {name: 'content', type: 'TEXT'}]  },
 	    {name : "Ticker", fields: [{name: 'id', type: 'INTEGER', extra: 'PRIMARY KEY AUTOINCREMENT'}, {name: 'symbol', type: 'TEXT'}, {name: 'description', type: 'TEXT'}]  }
 	]
 };
@@ -19,7 +19,7 @@ App.Entity.prototype.id = -1;
  */
 App.Entity.prototype.saveInTransaction = function(transaction){
 	if(this.id !== null){//UPDATE
-		App.log("save() update="+JSON.stringify(this));
+		//App.log("save() update="+JSON.stringify(this));
 		var props = {};
 		for(prop in this){
 			if(this.hasOwnProperty(prop)){
@@ -29,11 +29,11 @@ App.Entity.prototype.saveInTransaction = function(transaction){
 		}
 		$.db.where('id', this.id).update(this.name, props, 
 		function(norm_results, tx, queryStr){
+			App.log("asdf: "+arguments)
 			if(success)success();
 		},
-		function() {
-			if(error)error();
-			App.debug("Error processing SQL: "+JSON.stringify(arguments));
+		function(tx, err) {
+			App.log("Error processing SQL: "+err);
 		});
 	}else{//INSERT
 		var props = {id: null};
@@ -62,12 +62,12 @@ App.Entity.prototype.saveInTransaction = function(transaction){
 		query += ' ('+fields+') VALUES ('+paramQuestionMarks+')';
 		//console.log(query+" ");
 		transaction.executeSql(query, values, 
-			function(){
-				//window.console.log("Insert successful "+(arguments ? JSON.stringify(arguments) : ''));
+			function(tx, rs){
+				window.console.log("Insert: "+query+" successful id:"+rs.insertId);
 			}.bind(this),
-			function() {
-				window.console.log("Error processing SQL: "+JSON.stringify(arguments));
-			});
+			function(tx, err) {
+				window.console.log("Error processing SQL: "+err.message);
+			}.bind(this));
 	}
 }
 
@@ -86,9 +86,9 @@ App.Entity.prototype.save = function(success, error){
 		function(norm_results, tx, queryStr){
 			if(success)success();
 		},
-		function() {
+		function(tx, err) {
 			if(error)error();
-			App.debug("Error processing SQL: "+JSON.stringify(arguments));
+			App.debug("Error processing SQL: "+err);
 		});
 	}else{//INSERT
 		var props = {id: null};
@@ -111,9 +111,9 @@ App.Entity.prototype.save = function(success, error){
 			App.log(self.name+" saved:"+JSON.stringify(self));
 			if(success)success();
 		},
-		function() {
+		function(tx, err) {
 			if(error)error(arguments);
-			App.debug("Error processing SQL: "+JSON.stringify(arguments));
+			App.debug("Error processing SQL: "+err);
 		});
 	}
 }
@@ -153,7 +153,7 @@ function Publication(lastSynch){
 Publication.inheritsFrom(App.Entity);
 
 /************************** RSSFeed **************************************/
-function RSSFeed(title, description, link, pubDate, image){
+function RSSFeed(title, description, link, pubDate, image, content){
 	this.name = "RSSFeed";
 	this.title = title || null;//otherwise 'undefined' ends up in the db
 	this.description = description || null;
@@ -162,6 +162,8 @@ function RSSFeed(title, description, link, pubDate, image){
 	this.pubDate = pubDate || null;
 	this.id = null;
 	this.image = image || null;
+	this.content = content || null;
+	//console.log("Instantiated RSSFeed: "+JSON.stringify(this));
 } 
 RSSFeed.inheritsFrom(App.Entity);
 
