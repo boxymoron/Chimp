@@ -8,7 +8,8 @@ body {
     -webkit-text-size-adjust:none;
 	color:#eee;
 	font-family:helvetica;
-	font-size:12px;'
+	font-size:12px;
+	overflow: auto;
 }
 
 canvas { border: 2px solid black; }
@@ -35,7 +36,7 @@ form {width:100%;}
 }
 
 .PageView{
-	display: inline-block;
+	#display: inline-block;
 }
 
 .RSSList {
@@ -69,8 +70,8 @@ form {width:100%;}
 .RSSList li:hover {opacity:0.6;}
 .RSSList a {text-decoration: none;position:absolute;top:0px;left:0px;width:100%;height:100%;}
 .RSSList ul {font-style:italic; font-weight: bold; font-family:Georgia, Times, serif; color:#bfe1f1;  }
-.RSSList li {position:relative; display:inline-block; float: left; width:102px; height:100px; margin: 1px; overflow: hidden; border:1px solid;}
-.RSSList li div{background-color:rgba(0,0,0,.5);opacity:none !important;}
+.RSSList li {position:relative; display:inline-block; float: left; width:18.5%; height:200px; margin: 6px; overflow: hidden;    border-radius: 20px;border: 1px solid black;}
+.RSSList li div{background-color:rgba(0,0,0,.5);opacity:none !important;padding-left: 15px;}
 .RSSList span {font-style:normal; font-family:Arial; font-size:10px !important; color:#eee; padding-left: 1px;}
 .RSSList span em { display:block; }
 
