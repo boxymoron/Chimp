@@ -110,6 +110,6 @@ RSSList.prototype = {
 	NOTE: While the syntax of this function is almost identical to that of apply(), 
 	the fundamental difference is that call() accepts an argument list, while apply() accepts a single array of arguments.
  */
-Paginable.call(RSSList.prototype, 30, 1024);
+Paginable.call(RSSList.prototype, 20, 1024);
 
 /** **************************************************************************/

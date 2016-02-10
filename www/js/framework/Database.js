@@ -58,13 +58,13 @@ App.Database = function(name, schema) {
 			var that = this;
 			var $d = $.Deferred();
 
-			var rssFeeds = ['http://feeds.arstechnica.com/arstechnica/index?format=xml',
-            				'http://rss.slashdot.org/Slashdot/slashdotLinux',
+			var rssFeeds = ['http://feeds.arstechnica.com/arstechnica/index?format=xml&limit=100', 'http://feeds.arstechnica.com/arstechnica/apple?format=xml&limit=100'];//,
+            				/*'http://rss.slashdot.org/Slashdot/slashdotLinux',
             				'http://rss.slashdot.org/Slashdot/slashdotPolitics',
             				'http://rss.slashdot.org/Slashdot/slashdotDevelopers',
             				'http://rss.slashdot.org/Slashdot/slashdotYourRightsOnline',
             				'http://rss.cnn.com/rss/cnn_topstories.rss',
-            				'http://www.npr.org/rss/rss.php?id=1001'];
+            				'http://www.npr.org/rss/rss.php?id=1001'];*/
 
 			var start = new Date().getTime();
 

@@ -94,9 +94,10 @@ $(window).load(function () {
 	window.onpopstate = function(event){
 		if(event.state){
 			if(event.state.state === "decrement"){
-				App.page.gridView.buttonContainer.next.click();
+				//App.page.gridView.buttonContainer.next.click();
+
 			}else if(event.state.state === "increment"){
-				App.page.gridView.buttonContainer.previous.click();
+				//App.page.gridView.buttonContainer.previous.click();
 			}
 		}
 	};
