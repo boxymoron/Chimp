@@ -3,6 +3,10 @@
 <head>
     <script id="PageTemplate" type="text/x-handlebars-template">
         <div id='{{id}}' model='{{model}}' class='{{cssClass}}'>
+            <div id="dialog"></div>
+            <div id="somediv" title="this is a dialog" style="position:absolute; top:0px; margin: auto;width:40%;z-index:20;">
+                <iframe id="thedialog" width="720" height="480" style="border:none;top:10px;"></iframe>
+            </div>
         </div>
     </script>
     <script id="GridTemplate" type="text/x-handlebars-template">
@@ -33,12 +37,9 @@
         <div id='{{id}}' class='{{cssClass}}'></div>
     </script>
 
-    <script type="text/javascript">
-			//document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
-	</script>
-
     <script type="text/javascript" src="cordova.js"></script>
-    <script src="js/jquery/jquery-1.7.2.min.js"></script>
+    <script src="js/jquery/jquery-1.12.0.js"></script>
+    <script src="js/jquery/jquery-ui.min.js"></script>
     <script src="js/jquery/plugins/date.js"></script>
     <script src="js/jquery/plugins/jquery.db.v1.js"></script>
     <!--<script src="js/cubiq-iscroll/src/iscroll.js"></script>-->
@@ -51,6 +52,31 @@
     <script src="js/framework/Controller.js"></script>
     <script src="js/framework/View.js"></script>
     <script src="js/framework/Model.js"></script>
+
+    <script type="text/javascript">
+            function showDialog(){
+
+            }
+
+			//document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+
+			$(document).on('click','a',function(){
+               event.preventDefault()
+               $("#somediv").dialog({
+                    width: 400,
+                    height: 450,
+                    appendTo: "body",
+                    position: { my: "center", at: "center", of: "body" },
+                    modal: true,
+                    close: function () {
+                        $("#thedialog").attr('src', "about:blank");
+                    }
+                });
+                $('#thedialog').attr('src', $(this).attr('href'));
+               return false;
+            });
+
+	</script>
 
     <link rel="stylesheet" type="text/css" href="css/chimP/global.css" />
 </head>
