@@ -8,5 +8,5 @@ To run:
 - Alternatively, you can test changes in realtime:
     - From the command line go to the www folder and run: $ python -m SimpleHTTPServer 8000
     - Now you can browse to http://localhost:8000/index.html and refresh after any code changes.
-![Alt text](/Chimp-screenshot.png?raw=true "Chimp Screenshot")
+![Alt text](/Chimp-screenshot.png "Chimp Screenshot")
 
